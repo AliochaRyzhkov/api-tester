@@ -39,6 +39,8 @@ class SendRequest extends Controller {
 		if ( ! $response ) {
 			$http = new HTTPHelper\HTTPStatus;
 			$response = $http->getStatus($this->curl->info['http_code']);
+		} elseif (json_decode($response) === NULL) {
+			$response = "Invalid response format";
 		}
 		Session::flash('response', json_encode($response));
 		return Redirect::to('/');
